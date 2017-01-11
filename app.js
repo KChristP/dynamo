@@ -7,9 +7,9 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
-
-var ddb = require('dynamodb').ddb({ accessKeyId: 'AKIAIPXMSXJ64RZQCWRQ', secretAccessKey: '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' });
+var ddb = require('./db')
 ddb.listTables({}, function(err, res) {console.log(res);});
+
 var app = express();
 
 // view engine setup
