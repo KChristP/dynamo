@@ -2,7 +2,7 @@ extends layout
 
 block content
     h1= title
-    form(name="new-user", action="/users/new", method="post")
+    form(name="new-user", action="/edit", method="post")
         div.input
             span.label username
             input(type="text", name="username")
@@ -10,4 +10,4 @@ block content
             span.label password
             input(type="text", name="password")
         div.actions
-            input(type="submit", value="add")
+            input(type="submit", value="edit")
