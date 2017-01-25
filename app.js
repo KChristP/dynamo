@@ -7,8 +7,13 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
-var ddb = require('./db')
-var create = require('./create')
+var ddb = require('./db');
+var create = require('./create');
+
+var jwt = require('jwt-simple')
+var usersPractice = require('./users')
+var cfg = require('./config.js')
+var auth = require('./auth')();
 
 ddb.listTables({}, function(err, res) {console.log(res);});
 
@@ -25,20 +30,8 @@ app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.post('/users/new', function(req, res, cap) {
-  console.log(req.body.username);
-  // ddb.describeTable('users', function(err, res) {console.log(res);});
-  user = {
-    'userID': req.body.username,
-    'password': req.body.password
-  }
-  ddb.putItem('userBase', user, {}, function(err, res, cap) {
-    if(err)
-      console.log(err)
-    else {console.log(res, cap)};
-  });
-  // ddb.getItem('users', req.body, {}, function(err, res, cap) {console.log(res);});
-})
+app.use(auth.initialize());
+
 app.use('/', routes);
 app.use('/users', users);
 
@@ -48,6 +41,7 @@ app.use(function(req, res, next) {
     err.status = 404;
     next(err);
 });
+
 
 /// error handlers
 
