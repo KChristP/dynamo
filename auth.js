@@ -1,6 +1,5 @@
 var passport = require('passport')
 var passportJWT = require('passport-jwt')
-// var ddb = require('./db')
 var User = require('./models/user')
 var cfg = require('./config.js')
 var ExtractJwt = passportJWT.ExtractJwt
@@ -23,19 +22,6 @@ module.exports = function() {
         });
       }
     })
-    // console.log(payload);
-    // ddb.getItem('userBase', payload.userID, null, {}, function(err, response, capacity) {
-    //   if(err){
-    //     console.log(err);
-    //     return done(new Error("User not found"), null);
-    //   } else {
-    //     console.log('GetItem: ' + capacity);
-    //     console.log(response);
-    //     return done(null, {
-    //       userID: response.userID
-    //     });
-    //   }
-    // });
   });
 
   passport.use(strategy);

@@ -44,51 +44,6 @@ router.post('/login', function(req, res) {
         })
       }
     })
-
-    // var options = { attributesToGet: ['userID', 'password'],
-    // consistentRead: true };
-    // ddb.getItem('userBase', req.body.userID, null, options, function(err, getItemResponse, cap) {
-    //   if(err)
-    //     console.log(err);
-    //   else {
-    //     console.log('GetItem: ' + cap);
-    //     console.log(getItemResponse);
-    //     if(userID === getItemResponse.userID){
-    //       bcrypt.compare(password, getItemResponse.password, function(error, bcryptResponse){
-    //         if(error){
-    //           console.log(error)
-    //         }
-    //         if(bcryptResponse === true){
-    //           var payload = {
-    //             userID: userID
-    //           };
-    //           var token = jwt.encode(payload, cfg.jwtSecret);
-    //           res.json({
-    //             token: token
-    //           });
-    //         } else {
-    //           res.send(401);
-    //         }
-    //       })
-    //     } else {
-    //       res.json('user not found')
-    //     }
-    //   }
-    // });
-    // var user = usersPractice.find(function(u) {
-    //   return u.userID === userID && u.password === password;
-    // });
-    // if(user) {
-    //   var payload = {
-    //     id: user.id
-    //   };
-    //   var token = jwt.encode(payload, cfg.jwtSecret);
-    //   res.json({
-    //     token: token
-    //   });
-    // } else {
-    //   res.send(401);
-    // }
   } else {
     res.send(401);
   }
