@@ -7,7 +7,7 @@ curl -X GET -H "Content-Type: application/x-www-form-urlencoded" -H "Cache-Contr
 ```
 ### POST (returns a JSON Web Token(JWT) for authentication if credentials are in the database)
 ```
-curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -H "Cache-Control: no-cache" -d 'userID=jello&password=itsalive' "http://localhost:3000/login"
+curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -H "Cache-Control: no-cache" -d 'userid=jello&password=itsalive' "http://localhost:3000/login"
 ```
 
 ##/users/new

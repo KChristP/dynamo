@@ -7,12 +7,11 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
-// var ddb = require('./db');
-// var create = require('./create');
+
 
 var jwt = require('jwt-simple')
 var usersPractice = require('./users')
-var cfg = require('./config.js')
+// var cfg = require('./config.js')
 var auth = require('./auth')();
 
 // ddb.listTables({}, function(err, res) {console.log(res);});
