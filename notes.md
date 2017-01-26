@@ -15,3 +15,11 @@ Currently uses this library https://github.com/totemstech/node-dynamodb to simpl
 ##Models (not yet implemented)
 planning to use dynamoose library https://github.com/automategreen/dynamoose
 another good option is vogels - similar but syntax is more SQL like...
+
+
+ssh to db:
+ssh -i ddbkey.pem ubuntu@ec2-52-23-186-224.compute-1.amazonaws.com
+
+to run server: (use forever so it doesnt close when you close your ssh window)
+forever start bin/www
+

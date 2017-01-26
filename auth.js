@@ -11,14 +11,14 @@ var params = {
 
 module.exports = function() {
   var strategy = new Strategy(params, function(payload, done) {
-    User.get(payload.userID, function(err, user){
+    User.get(payload.userid, function(err, user){
       if(err){
         console.log(err);
         return done(new Error("User not found"), null);
       } else {
         console.log(user);
         return done(null, {
-          userID: user.userID
+          userid: user.userid
         });
       }
     })

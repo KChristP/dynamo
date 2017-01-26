@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-// var ddb = require('./../db');
 var auth = require('./../auth')();
 var bcrypt = require('bcrypt')
 const saltRounds = 10
@@ -30,16 +29,18 @@ router.get('/:id', auth.authenticate(), function(req, res) {
 router.post('/new', function(req, res, cap) {
   bcrypt.hash(req.body.password, saltRounds, function(err, hash){
     var user = new User({
-      'userID': req.body.userid,
+      'userid': req.body.userid,
       'password': hash,
-      'someotherdata': req.body.someotherdata
+      'firstname': req.body.firstname,
+      'lastname': req.body.lastname,
+      'email': req.body.email
     });
     user.save(function(err){
       if(err){
         console.log(error);
         res.json(error)
       } else {
-        console.log(`persisted user ${user.userID}`);
+        console.log(`persisted user ${user.userid}`);
         res.json(user)
       }
     })

@@ -1,9 +1,11 @@
 var dynamoose = require('dynamoose');
 
-var User = dynamoose.model('userBase', {
-  userID: String,
+var User = dynamoose.model('users', {
+  userid: String,
   password: String,
-  someotherdata: String
+  email: String,
+  firstname: String,
+  lastname: String
 })
 
 module.exports = User
