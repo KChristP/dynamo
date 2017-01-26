@@ -4,6 +4,7 @@ var auth = require('./../auth')();
 var bcrypt = require('bcrypt')
 const saltRounds = 10
 var User = require('./../models/user')
+var uuid = require('node-uuid');
 
 
 /* GET users listing. */
@@ -29,7 +30,7 @@ router.get('/:id', auth.authenticate(), function(req, res) {
 router.post('/new', function(req, res, cap) {
   bcrypt.hash(req.body.password, saltRounds, function(err, hash){
     var user = new User({
-      'userid': req.body.userid,
+      'userid': uuid.v1(),
       'password': hash,
       'firstname': req.body.firstname,
       'lastname': req.body.lastname,
@@ -47,7 +48,7 @@ router.post('/new', function(req, res, cap) {
   })
 });
 
-//PATCH - to update user info - holding off on configuring until I have a better idea what the data will look like for updates to user info
+//PATCH - to update user info
 router.patch('/:id', auth.authenticate(), function(req, res) {
   bcrypt.hash(req.body.password, saltRounds, function(err, hash){
     var user = {

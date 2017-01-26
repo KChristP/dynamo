@@ -16,9 +16,9 @@ router.get('/login', function(req, res) {
 //POST login info and retrieve token
 router.post('/login', function(req, res) {
   if(req.body.userid && req.body.password) {
-    var userid = req.body.userid;
+    var email = req.body.email;
     var password = req.body.password;
-    var hash;
+    // var hash;
     User.get(userid, function(err, user){
       if(err){
         console.log(err);
