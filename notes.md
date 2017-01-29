@@ -23,3 +23,6 @@ ssh -i ddbkey.pem ubuntu@ec2-52-23-186-224.compute-1.amazonaws.com
 to run server: (use forever so it doesnt close when you close your ssh window)
 forever start bin/www
 
+export AWS_ACCESS_KEY_ID="AKIAJ3QRVYOT5XRHDTAA"
+export AWS_SECRET_ACCESS_KEY="FBd6rssCxKuTPfb0Abhc3mop+Bhugcy9eWx1HkCf"
+export AWS_REGION="us-west-1"

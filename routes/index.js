@@ -2,7 +2,7 @@ var jwt = require('jwt-simple')
 var express = require('express');
 var router = express.Router();
 var usersPractice = require('./../users')
-// var cfg = require('./../config')
+var cfg = require('./../config')
 var User = require('./../models/user')
 var bcrypt = require('bcrypt')
 const saltRounds = 10
@@ -15,12 +15,13 @@ router.get('/login', function(req, res) {
 
 //POST login info and retrieve token
 router.post('/login', function(req, res) {
-  if(req.body.userid && req.body.password) {
+  if(req.body.email && req.body.password) {
     var email = req.body.email;
     var password = req.body.password;
     // var hash;
-    User.get(userid, function(err, user){
+    User.get({email: req.body.email}, function(err, user){
       if(err){
+        console.log("error in user.get")
         console.log(err);
         res.json(err)
       } else {
@@ -31,19 +32,21 @@ router.post('/login', function(req, res) {
           }
           if(bcryptResponse === true){
             var payload = {
-              userid: userid
+              email: email
             };
             var token = jwt.encode(payload, cfg.jwtSecret);
             res.json({
               token: token
             });
           } else {
+            console.log("Incorrect password")
             res.send(401);
           }
         })
       }
     })
   } else {
+    console.log("please provide a valid email and password")
     res.send(401);
   }
 });

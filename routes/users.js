@@ -30,11 +30,11 @@ router.get('/:id', auth.authenticate(), function(req, res) {
 router.post('/new', function(req, res, cap) {
   bcrypt.hash(req.body.password, saltRounds, function(err, hash){
     var user = new User({
+      'email': req.body.email,
       'userid': uuid.v1(),
       'password': hash,
       'firstname': req.body.firstname,
-      'lastname': req.body.lastname,
-      'email': req.body.email
+      'lastname': req.body.lastname
     });
     user.save(function(err){
       if(err){
