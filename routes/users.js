@@ -28,6 +28,9 @@ router.get('/:id', auth.authenticate(), function(req, res) {
 // POST
 
 router.post('/new', function(req, res, cap) {
+  console.log("this is the request body:", req.body)
+    console.log("this is the request headers:", req.headers)
+
   bcrypt.hash(req.body.password, saltRounds, function(err, hash){
     var user = new User({
       'email': req.body.email,
@@ -38,8 +41,8 @@ router.post('/new', function(req, res, cap) {
     });
     user.save(function(err){
       if(err){
-        console.log(error);
-        res.json(error)
+        console.log(err);
+        res.json(err)
       } else {
         console.log(`persisted user ${user.userid}`);
         res.json(user)
