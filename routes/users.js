@@ -43,6 +43,7 @@ router.get('/:id', auth.authenticate(), function(req, res) {
 router.post('/new', function(req, res, cap) {
   console.log("this is the request body:", req.body)
     console.log("this is the request headers:", req.headers)
+
   bcrypt.hash(req.body.password, saltRounds, function(err, hash){
     var user = new User({
       'email': req.body.email,
