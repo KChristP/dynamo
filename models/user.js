@@ -5,7 +5,13 @@ var User = dynamoose.model('users', {
   userid: String,
   password: String,
   firstname: String,
-  lastname: String
+  lastname: String,
+  // twitterID: String,
+  // twitterKey: String,
+  // InstagramID: String,
+  // InstagramKey: String,
+  // creationDate: Number
+
 })
 
 module.exports = User
