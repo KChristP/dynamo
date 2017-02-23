@@ -10,17 +10,17 @@ var cfg = require('./../config')
 
 
 /* GET users listing. */
-// router.get('/username/:id', function(req, res){
-//   User.get(req.params.id, function(err, user){
-//     if(err){
-//       console.log(err)
-//       res.json(err)
-//     } else {
-//       console.log(user)
-//       res.json(user.username)
-//     }
-//   })
-// });
+router.get('/username/:id', function(req, res){
+  User.get(req.params.id, function(err, user){
+    if(err){
+      console.log(err)
+      res.json(err)
+    } else {
+      console.log(user)
+      res.json(user.username)
+    }
+  })
+});
 
 router.get('/new', function(req, res) {
   res.render('new', { title: 'New User' });
@@ -40,34 +40,43 @@ router.get('/:id', auth.authenticate(), function(req, res) {
 
 // POST
 
-// router.post('/new', function(req, res, cap) {
-//   console.log("this is the request body:", req.body)
-//     console.log("this is the request headers:", req.headers)
-//   bcrypt.hash(req.body.password, saltRounds, function(err, hash){
-//     var user = new User({
-//       'email': req.body.email,
-//       'userid': uuid.v1(),
-//       'password': hash,
-//       'firstname': req.body.firstname,
-//       'lastname': req.body.lastname
-//     });
-//     user.save(function(err){
-//       if(err){
-//         console.log(err);
-//         res.json(err)
-//       } else {
-//         console.log(`persisted user ${user.userid}`);
-//         var payload = {
-//           email: req.body.email
-//         };
-//         var token = jwt.encode(payload, cfg.jwtSecret);
-//         res.json({
-//           token: token
-//         });        
-//       }
-//     })
-//   })
-// });
+router.post('/new', function(req, res, cap) {
+  console.log("this is the request body:", req.body)
+    console.log("this is the request headers:", req.headers)
+  bcrypt.hash(req.body.password, saltRounds, function(err, hash){
+    var user = new User({
+      'email': req.body.email,
+      'UID': uuid.v1(),
+      'passwordHash': hash,
+      'firstName': req.body.firstName,
+      'lastName': req.body.lastName,
+      'userName': req.body.userName,
+      'screenName': "*" + req.body.userName,
+      'creationDate': new Date().getTime() / 1000
+    });
+    user.save(function(err){
+      if(err){
+        console.log(err);
+        res.json(err)
+      } else {
+        console.log(`persisted user ${user.UID}`);
+        var payload = {
+          email: req.body.email
+        };
+        var token = jwt.encode(payload, cfg.jwtSecret);
+        res.json({
+          email: user.email,
+          firstName: user.firstName,
+          lastName: user.lastname,
+          userName: user.userName,
+          screenName: user.screenName,
+          creationDate: user.creationDate,
+          token: token
+        });        
+      }
+    })
+  })
+});
 
 //PATCH - to update user info
 router.patch('/:id', auth.authenticate(), function(req, res) {

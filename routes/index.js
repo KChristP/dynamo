@@ -25,7 +25,7 @@ router.post('/login', function(req, res) {
         console.log(err);
         res.json(err)
       } else {
-        bcrypt.compare(password, user.password, function(error, bcryptResponse){
+        bcrypt.compare(password, user.passwordHash, function(error, bcryptResponse){
           if(error){
             console.log(error)
             res.json(error)
@@ -36,6 +36,12 @@ router.post('/login', function(req, res) {
             };
             var token = jwt.encode(payload, cfg.jwtSecret);
             res.json({
+              email: user.email,
+              firstName: user.firstName,
+              lastName: user.lastname,
+              userName: user.userName,
+              screenName: user.screenName,
+              creationDate: user.creationDate,
               token: token
             });
           } else {
