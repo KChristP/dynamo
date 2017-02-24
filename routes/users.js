@@ -7,6 +7,7 @@ var User = require('./../models/user')
 var uuid = require('node-uuid');
 var jwt = require('jwt-simple')
 var cfg = require('./../config')
+var Flow = require('./../models/flow')
 
 
 /* GET users listing. */
@@ -40,7 +41,7 @@ router.get('/:id', auth.authenticate(), function(req, res) {
 
 // POST
 
-router.post('/new', function(req, res, cap) {
+router.post('/', function(req, res, cap) {
   console.log("this is the request body:", req.body)
     console.log("this is the request headers:", req.headers)
 
@@ -65,7 +66,7 @@ router.post('/new', function(req, res, cap) {
           email: req.body.email
         };
         var token = jwt.encode(payload, cfg.jwtSecret);
-        res.json({
+        var userData = {
           email: user.email,
           firstName: user.firstName,
           lastName: user.lastname,
@@ -73,7 +74,16 @@ router.post('/new', function(req, res, cap) {
           screenName: user.screenName,
           creationDate: user.creationDate,
           token: token
-        });        
+        };
+        Flow.get(user.UID, function(err, flows){
+          if(err)
+            console.log(err);
+          else {
+            console.log(flows);
+            res.json(Object.assign({}, userData, flows));
+          }          
+        })
+        res.json();        
       }
     })
   })
