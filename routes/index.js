@@ -35,7 +35,7 @@ router.post('/login', function(req, res) {
               email: email
             };
             var token = jwt.encode(payload, cfg.jwtSecret);
-            res.json({
+            var userData = {
               email: user.email,
               firstName: user.firstName,
               lastName: user.lastname,
@@ -43,7 +43,9 @@ router.post('/login', function(req, res) {
               screenName: user.screenName,
               creationDate: user.creationDate,
               token: token
-            });
+            }
+            res.json(userData);
+            
           } else {
             console.log("Incorrect password")
             res.send(401);

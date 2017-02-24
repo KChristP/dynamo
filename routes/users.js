@@ -39,7 +39,7 @@ router.get('/:id', auth.authenticate(), function(req, res) {
   })
 });
 
-// POST
+// POST new user
 
 router.post('/', function(req, res, cap) {
   console.log("this is the request body:", req.body)
@@ -75,15 +75,7 @@ router.post('/', function(req, res, cap) {
           creationDate: user.creationDate,
           token: token
         };
-        Flow.get(user.UID, function(err, flows){
-          if(err)
-            console.log(err);
-          else {
-            console.log(flows);
-            res.json(Object.assign({}, userData, flows));
-          }          
-        })
-        res.json();        
+        res.json(userData);        
       }
     })
   })
