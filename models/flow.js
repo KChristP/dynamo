@@ -24,7 +24,7 @@ var flowSchema = new Schema({
     type: String,
     required: true
   },
-  versionrstName: {
+  version: {
     type: String,
     required: true
   },
@@ -37,13 +37,13 @@ var flowSchema = new Schema({
 		required: true
   },
   viewsCount: {
-    type: String,
+    type: Number,
   },
   sharesCount: {
-    type: String,
+    type: Number,
   },
   likesCount: {
-    type: String,
+    type: Number,
   },
   commentsCount: {
     type: Number,

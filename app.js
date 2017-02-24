@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var flows = require('./routes/flows');
 
 
 var jwt = require('jwt-simple')
@@ -42,6 +43,7 @@ app.use(function(req, res, next) {
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/flows', flows);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {

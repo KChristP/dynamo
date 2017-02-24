@@ -3,10 +3,10 @@ var router = express.Router();
 var auth = require('./../auth')();
 var bcrypt = require('bcrypt')
 const saltRounds = 10
-var User = require('./../models/user')
 var uuid = require('node-uuid');
 var jwt = require('jwt-simple')
 var cfg = require('./../config')
+var User = require('./../models/user')
 var Flow = require('./../models/flow')
 
 
