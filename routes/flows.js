@@ -22,8 +22,8 @@ router.get('/flows/:id', auth.authenticate(), function(req, res) {
 
 // POST a new flow
 router.post('/', auth.authenticate(), function(req, res, cap) {
-  let date = new Date().getTime() / 1000;
-	flow = new Flow({
+   var date = new Date().getTime() / 1000;
+   var flow = new Flow({
     flowUID: uuid.v1(),
     authorUID: req.body.userID,
     title: req.body.title,
