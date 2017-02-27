@@ -22,7 +22,7 @@ var userSchema = new Schema({
   },
   UID: {
     type: String,
-    required: true
+    required: true,
   },
   passwordHash: {
     type: String,

@@ -32,10 +32,12 @@ router.post('/login', function(req, res) {
           }
           if(bcryptResponse === true){
             var payload = {
-              email: email
+              email: user.email,
+              UID: user.UID
             };
             var token = jwt.encode(payload, cfg.jwtSecret);
             var userData = {
+              UID: user.UID,
               email: user.email,
               firstName: user.firstName,
               lastName: user.lastname,

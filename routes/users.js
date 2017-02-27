@@ -42,8 +42,6 @@ router.get('/:id', auth.authenticate(), function(req, res) {
 // POST new user
 
 router.post('/', function(req, res, cap) {
-  console.log("this is the request body:", req.body)
-    console.log("this is the request headers:", req.headers)
 
   bcrypt.hash(req.body.password, saltRounds, function(err, hash){
     var user = new User({
@@ -63,7 +61,8 @@ router.post('/', function(req, res, cap) {
       } else {
         console.log(`persisted user ${user.UID}`);
         var payload = {
-          email: req.body.email
+          email: user.email,
+          UID: user.UID
         };
         var token = jwt.encode(payload, cfg.jwtSecret);
         var userData = {

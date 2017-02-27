@@ -4,31 +4,43 @@ var auth = require('./../auth')();
 var Flow = require('./../models/flow');
 var uuid = require('node-uuid');
 
+
 // GET flows
 
 
-router.get('/flows/:id', auth.authenticate(), function(req, res) {
-  console.log('get request:', req.params.id);
-  Flow.get(req.params.id, function(err, flow){
+router.get('/', auth.authenticate(), function(req, res) {
+  let token = req.headers.authorization.slice(4)
+  let parseJwt = function(jwt) {
+        var base64Url = jwt.split('.')[1];
+        var base64 = base64Url.replace('-', '+').replace('_', '/');
+        return JSON.parse(new Buffer(base64, 'base64').toString('binary') );
+  };
+  let authorUID = parseJwt(token).UID
+  Flow.query({authorUID: {eq: authorUID}}, function(err, flows){
     if(err)
       console.log(err);
     else {
-      console.log(flow);
-      res.json(flow);
+      console.log(flows)
+      res.json(flows);
     }
   })
 });
 
+// router.get('/', auth.authenticate(), function(req, res) {
+//   log('inside get')
+//   let token = req.headers.authorization
+
+// });
 
 // POST a new flow
 router.post('/', auth.authenticate(), function(req, res, cap) {
    var date = new Date().getTime() / 1000;
    var flow = new Flow({
     flowUID: uuid.v1(),
-    authorUID: req.body.userID,
+    authorUID: req.body.authorUID,
     title: req.body.title,
     description: req.body.description,
-    version: req.body.userID,
+    version: ("0.1"),
     modificationDate: date,
     creationDate: date,
     viewsCount: 0,

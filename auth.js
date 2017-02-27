@@ -18,7 +18,8 @@ module.exports = function() {
       } else {
         console.log(user);
         return done(null, {
-          email: user.email
+          email: user.email,
+          UID: user.UID
         });
       }
     })
