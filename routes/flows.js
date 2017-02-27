@@ -9,13 +9,13 @@ var uuid = require('node-uuid');
 
 
 router.get('/', auth.authenticate(), function(req, res) {
-  let token = req.headers.authorization.slice(4)
-  let parseJwt = function(jwt) {
+  var token = req.headers.authorization.slice(4)
+  var parseJwt = function(jwt) {
         var base64Url = jwt.split('.')[1];
         var base64 = base64Url.replace('-', '+').replace('_', '/');
         return JSON.parse(new Buffer(base64, 'base64').toString('binary') );
   };
-  let authorUID = parseJwt(token).UID
+  var authorUID = parseJwt(token).UID
   Flow.query({authorUID: {eq: authorUID}}, function(err, flows){
     if(err)
       console.log(err);
