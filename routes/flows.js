@@ -61,4 +61,19 @@ router.post('/', auth.authenticate(), function(req, res, cap) {
   });
 });
 
+
+//Patch for updating a flow
+
+router.patch('/:id', auth.authenticate(), function(req, res){
+  Flow.update(req.params.id, req.body, function(err, flow){
+    if(err){
+      console.log(err)
+      res.json(err)
+    } else {
+      console.log("this is the returned: ", flow)
+      res.json(flow)
+    }
+  })
+})
+
 module.exports = router;
